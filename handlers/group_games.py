@@ -1,11 +1,14 @@
 from aiogram import Router
+from aiogram import F
 from aiogram.enums.dice_emoji import DiceEmoji
 from aiogram.types import Message
 from aiogram.filters import Command
 from filters.chat_type import ChatTypeFilter
 
 router = Router()
-router.message.filter(ChatTypeFilter(chat_type=["group", "supergroup"]))
+# router.message.filter(ChatTypeFilter(chat_type=["group", "supergroup"])) #with ChatTypeFilter
+router.message.filter(F.chat.type.in_({"group", "supergroup"}))
+
 
 @router.message(Command("gdice"))
 async def cmd_dice_in_group(message: Message):

@@ -1,11 +1,16 @@
 from aiogram import Router
+from aiogram import F
 from aiogram.enums.dice_emoji import DiceEmoji
 from aiogram.types import Message
 from aiogram.filters import Command
 from filters.chat_type import ChatTypeFilter
 
+from middlewares.weekend import WeekendMessageMiddleware
+
 router = Router()
-router.message.filter(ChatTypeFilter(chat_type=["private"]))
+# router.message.filter(ChatTypeFilter(chat_type=["private"])) #with ChatTypeFilter
+router.message.filter(F.chat.type.in_({"private"}))
+# router.message.middleware(WeekendMessageMiddleware())
 
 @router.message(Command("dice"))
 async def cmd_dice(message: Message):

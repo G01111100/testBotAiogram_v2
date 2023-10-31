@@ -6,7 +6,7 @@ from keyboards.for_questions import get_yes_no_kb
 
 router = Router()
 
-@router.message(Command("start"))
+@router.message(Command("question"))
 async def cmd_start(message: Message):
     await message.answer("Are you satisfied with your work?", reply_markup=get_yes_no_kb())
 
